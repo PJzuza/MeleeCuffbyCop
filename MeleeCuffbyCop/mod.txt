@@ -2,6 +2,7 @@
 	    "name" : "MeleeCuffbyCop",
 	    "description" : "Gain a chance of cops can melee and can cuff a player.",
 	    "author" : "NewPJzuza",
+	    "contact" : "http://steamcommunity.com/id/NewPJzuza/",
 	    "version" : "1.1",
 	    "blt_version" : 2,
 	    "image": "meleecuff.png",
