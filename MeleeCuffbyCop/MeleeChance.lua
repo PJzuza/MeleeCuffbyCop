@@ -8,11 +8,37 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 		if not self:_chk_can_take_dmg() then
 			return
 		end
-		
+			
 			-- preparing somee stuffs
 			local getting_cuffed_chance = math.random(0,100)
 			local player_can_counter_strike_cops = managers.player:has_category_upgrade("player", "counter_strike_melee")
 			local player_can_counter_strike_clk =  managers.player:has_category_upgrade("player", "counter_strike_spooc")
+			local enemies_attacker_types = attack_data.attacker_unit:base()._tweak_table
+			
+		-- check enemies types | You can add more enemies types if you want 
+		if 	enemies_attacker_types == "medic" or 
+			enemies_attacker_types == "taser" or  
+			enemies_attacker_types == "spooc" or 
+			--[[ Excluded All dozer units. You can re-enable by delete this line and the line after tank_mini
+			enemies_attacker_types == "tank" or 
+			enemies_attacker_types == "tank_hw" or 
+			enemies_attacker_types == "tank_medic" or 
+			enemies_attacker_types == "tank_mini" or
+				]]--
+			enemies_attacker_types == "city_swat" or 
+			enemies_attacker_types == "cop" or 
+			enemies_attacker_types == "cop_female" or 
+			enemies_attacker_types == "cop_scared" or 
+			enemies_attacker_types == "fbi" or 
+			enemies_attacker_types == "fbi_swat" or 
+			enemies_attacker_types == "fbi_heavy_swat" or 
+			enemies_attacker_types == "heavy_swat" or 
+			enemies_attacker_types == "gensec" or 
+			enemies_attacker_types == "murky" or 
+			enemies_attacker_types == "phalanx_minion" or 
+			enemies_attacker_types == "phalanx_vip" or 
+			enemies_attacker_types == "security" or 
+			enemies_attacker_types == "heavy_zeal_sniper" then
 			-- check if the player got tased | if so check if the player is on swan song or not.
 			if self._unit:movement():tased() then
 				if not self._unit:character_damage().swansong then
@@ -20,6 +46,7 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					if alive(self._unit) then
 						-- check if the player got meleed then a cop can cuff the player instantly.
 						if self:_chk_can_take_dmg() then
+							attack_data.attacker_unit:sound():say("i03")
 							managers.player:set_player_state("arrested")
 							return self._current_state
 						end
@@ -44,10 +71,21 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					end 
 				-- if others states from above 	
 				else
+					attack_data.attacker_unit:sound():say("i03")
 					managers.player:set_player_state("arrested")
 					return self._current_state
 				end
+			
 			end
+		-- if enemies types are not matched in enemies_attacker_types then do nothing
+ 		else
+			-- unless the player has counterstrike skill then it will be used
+			-- It still has that serious bug. You gain auto counter somehow and sometimes :\
+			if player_can_counter_strike_cops and self._unit:movement():current_state().in_melee then
+						self._unit:movement():current_state():discharge_melee()
+							return "countered"
+					end 
+		end
 	end
 end
 
