@@ -14,10 +14,9 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 			local player_can_counter_strike_cops = managers.player:has_category_upgrade("player", "counter_strike_melee")
 			local player_can_counter_strike_clk =  managers.player:has_category_upgrade("player", "counter_strike_spooc")
 			local enemies_attacker_types = attack_data.attacker_unit:base()._tweak_table
-			
 		-- check enemies types | You can add more enemies types if you want 
 		if 	enemies_attacker_types == "medic" or 
-			enemies_attacker_types == "taser" or  
+			enemies_attacker_types == "taser" or 
 			enemies_attacker_types == "spooc" or 
 			--[[ Excluded All dozer units. You can re-enable by delete this line and the line after tank_mini
 			enemies_attacker_types == "tank" or 
@@ -46,7 +45,6 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					if alive(self._unit) then
 						-- check if the player got meleed then a cop can cuff the player instantly.
 						if self:_chk_can_take_dmg() then
-							attack_data.attacker_unit:sound():say("i03")
 							managers.player:set_player_state("arrested")
 							return self._current_state
 						end
@@ -71,20 +69,18 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					end 
 				-- if others states from above 	
 				else
-					attack_data.attacker_unit:sound():say("i03")
 					managers.player:set_player_state("arrested")
+					end
 					return self._current_state
 				end
-			
-			end
 		-- if enemies types are not matched in enemies_attacker_types then do nothing
  		else
 			-- unless the player has counterstrike skill then it will be used
 			-- It still has that serious bug. You gain auto counter somehow and sometimes :\
 			if player_can_counter_strike_cops and self._unit:movement():current_state().in_melee then
-						self._unit:movement():current_state():discharge_melee()
-							return "countered"
-					end 
+				self._unit:movement():current_state():discharge_melee()
+				return "countered"
+			end 
 		end
 	end
 end
