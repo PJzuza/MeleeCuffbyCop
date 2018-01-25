@@ -24,6 +24,7 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 			enemies_attacker_types == "tank_medic" or 
 			enemies_attacker_types == "tank_mini" or
 				]]--
+			enemies_attacker_types == "swat" or
 			enemies_attacker_types == "city_swat" or 
 			enemies_attacker_types == "cop" or 
 			enemies_attacker_types == "cop_female" or 
@@ -70,8 +71,8 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 				-- if others states from above 	
 				else
 					managers.player:set_player_state("arrested")
-					end
 					return self._current_state
+					end
 				end
 		-- if enemies types are not matched in enemies_attacker_types then do nothing
  		else
@@ -84,10 +85,9 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 		end
 	end
 end
-
 --[[
 Thing I still have to do
-	* Fixed some serious bugs. (auto counter, no timer if you got cuffed while you got tased at the same time, every enemies can cuff a player for now, auto counter is cheating to me... though I am trying to fix it)
+	* Fixed some serious bugs. (auto counter, no timer if you got cuffed while you got tased at the same time, auto counter is cheating to me... though I am trying to fix it)
 	* Exclude some types of enemies and special enemies like Dozer, Taser, Sniper, Shield may be...
 	* Make it works both client side and a host side. (now it works only if you have this mod)
 	* I may add an option to enable-disable this mod.
