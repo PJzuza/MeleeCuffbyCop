@@ -11,7 +11,7 @@ Make cops can melee and cuff a player for PayDay 2 game :)
 
 
 ## How to install it?  
-1. Download the file from [Here/GitHub](https://github.com/PJzuza/MeleeCuffbyCop), [Modworkshop](https://modworkshop.net/mydownloads.php?action=view_down&did=21693)  
+1. Download the file from [Here/GitHub](https://github.com/PJzuza/MeleeCuffbyCop), [Modworkshop](https://modworkshop.net/mydownloads.php?action=view_down&did=21693),  [Paydaymods](http://paydaymods.com/mods/641/MCbC)  
 2. Extract the file using a program, for example, WinRAR, 7-Zip etc.  
 3. Move the folder's name "MeleeCuffbyCop" to \SteamLibrary\steamapps\common\PAYDAY 2\mods  
 4. Enjoy :)  
