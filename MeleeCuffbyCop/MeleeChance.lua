@@ -24,8 +24,10 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 		["heavy_swat"] = true,
 		["gensec"] = true,
 		["murky"] = true,
+		--[[ Excluded All shields as well (since this one shouldn't attack using melee in a first place)
 		["phalanx_minion"] = true,
 		["phalanx_vip"] = true,
+		]]--
 		["security"] = true,
 		["heavy_zeal_sniper"] = true
 	}
@@ -50,6 +52,11 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					if alive(self._unit) then
 						-- check if the player got meleed then a cop can cuff the player instantly.
 						if self:_chk_can_take_dmg() then
+							--[[ check the enemy unit| If alive and successfully cuff player then line i03 will be run. 
+							 Works on normal and heavy swats and some types of cops. ]]--
+							if attack_data.attacker_unit and attack_data.attacker_unit:alive() then
+								attack_data.attacker_unit:sound():say("i03")
+							end
 							managers.player:set_player_state("arrested")
 							return self._current_state
 						end
@@ -74,6 +81,9 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					end 
 				-- if others states from above 	
 				else
+					if attack_data.attacker_unit and attack_data.attacker_unit:alive() then
+						attack_data.attacker_unit:sound():say("i03")
+					end
 					managers.player:set_player_state("arrested")
 					return self._current_state
 				end
