@@ -7,17 +7,17 @@
 	mcc.settings = {mcc_chance_slider_value = 20}
 -- 
 function mcc:GetCuffedChanceValue()
-	return mcc.settings.mcc_chance_slider_value
+	return self.settings.mcc_chance_slider_value
 end
 
 function mcc:Reset()
-	mcc.settings = {
+	self.settings = {
 		mcc_chance_slider_value = 20
 	}
 end
 
 function mcc:Save()
-	local file = io.open(mcc.settings_path, "w+")
+	local file = io.open(self.settings_path, "w+")
 	if file then
 		file:write(json.encode(mcc.settings))
 		file:close()
@@ -25,23 +25,19 @@ function mcc:Save()
 end
 
 function mcc:Load()
-	mcc:Reset()
-	local file = io.open(mcc.settings_path, "r")
+	self:Reset()
+	local file = io.open(self.settings_path, "r")
 	if file then
 		for k, v in pairs(json.decode(file:read('*all')) or {}) do
-				mcc.settings[k] = v
+				self.settings[k] = v
 		end
-		mcc:GetCuffedChanceValue()
+		--self:GetCuffedChanceValue() -- What this function does here?; ShockWave
 		file:close()
 	end
 end
 
 --PostHook to override a function PlayerDamage:damage_melee | Thanks to Luffy on this part :D
-if RequiredScript == "lib/units/beings/player/playerdamage" then
--- Disable the override function. Sory but I'm too lazy to use a Toggle :P
-if mcc:GetCuffedChanceValue() == 0 then
-	return
-else
+if RequiredScript == "lib/units/beings/player/playerdamage" and mcc:GetCuffedChanceValue() ~= 0 then
 	local types = { -- Enemy's types | You can add more enemies types if you want.
 		["medic"] = true,
 		["taser"] = true,
@@ -76,7 +72,7 @@ else
 		end
 			
 		-- preparing somee stuffs
-		local getting_cuffed_chance = math.random(0,100)
+		local getting_cuffed_chance = math.random(0, 100)
 		local player_can_counter_strike_cops = managers.player:has_category_upgrade("player", "counter_strike_melee")
 		local player_can_counter_strike_clk =  managers.player:has_category_upgrade("player", "counter_strike_spooc")
 		local enemies_attacker_types = attack_data.attacker_unit:base()._tweak_table
@@ -140,7 +136,6 @@ else
 			end
 		end
 	end)
-end
 end
 
 --Localization in case we have a new language kicks in.
