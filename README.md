@@ -9,6 +9,8 @@ Make cops can melee and cuff a player for PayDay 2 game :)
 
 ![MeleeCuffbyCop gif](https://thumbs.gfycat.com/SpanishBothCowrie-size_restricted.gif)  
 
+You can change the Melee Chance in the in-game mod option. It has the value from 0% - 100%  
+![Melee Cuff by Cop mod option](https://i.imgur.com/S5wY9bB.jpg)  
 
 ## How to install it?  
 1. Download the file from [Here/GitHub](https://github.com/PJzuza/MeleeCuffbyCop), [Modworkshop](https://modworkshop.net/mydownloads.php?action=view_down&did=21693),  [Paydaymods](http://paydaymods.com/mods/641/MCbC)  
