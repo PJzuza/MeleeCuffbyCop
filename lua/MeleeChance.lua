@@ -1,9 +1,48 @@
-if RequiredScript == "lib/units/beings/player/playerdamage" then
-	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- MeleeCuffbyCop -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- MeleeCuffbyCop -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 	-- On WIP. Bare with my coding skill and special thank you to Luffy for repolishing my bullshi* codes :P --
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-	local getting_cuffed_melee_chance = 20 -- Change this number from 0(cops won't cuff a player) up to 100(cops always cuff a player)
-	local types = { -- You can add more enemies types if you want.
+	_G.mcc = _G.mcc or {}
+	mcc._path = ModPath
+	mcc.settings_path = SavePath .. "MeleeCuffChance.txt"
+	mcc.settings = {mcc_chance_slider_value = 20}
+-- 
+function mcc:GetCuffedChanceValue()
+	return mcc.settings.mcc_chance_slider_value
+end
+
+function mcc:Reset()
+	mcc.settings = {
+		mcc_chance_slider_value = 20
+	}
+end
+
+function mcc:Save()
+	local file = io.open(mcc.settings_path, "w+")
+	if file then
+		file:write(json.encode(mcc.settings))
+		file:close()
+	end
+end
+
+function mcc:Load()
+	mcc:Reset()
+	local file = io.open(mcc.settings_path, "r")
+	if file then
+		for k, v in pairs(json.decode(file:read('*all')) or {}) do
+				mcc.settings[k] = v
+		end
+		mcc:GetCuffedChanceValue()
+		file:close()
+	end
+end
+
+--PostHook to override a function PlayerDamage:damage_melee | Thanks to Luffy on this part :D
+if RequiredScript == "lib/units/beings/player/playerdamage" then
+-- Disable the override function. Sory but I'm too lazy to use a Toggle :P
+if mcc:GetCuffedChanceValue() == 0 then
+	return
+else
+	local types = { -- Enemy's types | You can add more enemies types if you want.
 		["medic"] = true,
 		["taser"] = true,
 		["spooc"] = true,
@@ -31,7 +70,6 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 		["security"] = true,
 		["heavy_zeal_sniper"] = true
 	}
-	-- Added hook 
 	Hooks:PostHook(PlayerDamage, "damage_melee", "MeleeChanceDamageMelee", function(self, attack_data)
 		if not self:_chk_can_take_dmg() then
 			return
@@ -52,20 +90,19 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					if alive(self._unit) then
 						-- check if the player got meleed then a cop can cuff the player instantly.
 						if self:_chk_can_take_dmg() then
-							--[[ check the enemy unit| If alive and successfully cuff player then line i03 will be run. 
-							 Works on normal and heavy swats and some types of cops. ]]--
+							-- check the enemy unit| If alive and successfully cuff player then line i03 will be run. Works on normal and heavy swats and some type of cops.
 							if attack_data.attacker_unit and attack_data.attacker_unit:alive() then
 								attack_data.attacker_unit:sound():say("i03")
+								managers.player:set_player_state("arrested")
+								return self._current_state
 							end
-							managers.player:set_player_state("arrested")
-							return self._current_state
 						end
 					end
 				end
 			end
 			
 			-- run a random number | if true then the player will get cuffed by cops because of getting meleed.
-			if getting_cuffed_chance < getting_cuffed_melee_chance then
+			if getting_cuffed_chance < mcc:GetCuffedChanceValue() then
 				-- if the player is on swansong, bleed out or incapacitated state then the player won't get cuffed.
 				if self._unit:character_damage().swansong or self._bleed_out or self:incapacitated() then
 				
@@ -81,11 +118,11 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 					end 
 				-- if others states from above 	
 				else
-					if attack_data.attacker_unit and attack_data.attacker_unit:alive() then
+					if attack_data.attacker_unit and alive(attack_data.attacker_unit) then		
 						attack_data.attacker_unit:sound():say("i03")
-					end
-					managers.player:set_player_state("arrested")
-					return self._current_state
+						managers.player:set_player_state("arrested")
+						return self._current_state
+					end				
 				end
 			end
 		-- if enemies types are not matched in enemies_attacker_types then do nothing
@@ -104,3 +141,48 @@ if RequiredScript == "lib/units/beings/player/playerdamage" then
 		end
 	end)
 end
+end
+
+--Localization in case we have a new language kicks in.
+Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInit_mcc", function( loc )
+	if file.DirectoryExists(mcc._path .. "loc/") then
+		local custom_language
+		for _, mod in pairs(BLT and BLT.Mods:Mods() or {}) do
+			if mod:GetName() == "PAYDAY 2 THAI LANGUAGE Mod" and mod:IsEnabled() then
+				custom_language = "thai"
+				break
+			end			
+		end
+		if custom_language then
+			loc:load_localization_file(mcc._path .. "loc/" .. custom_language ..".txt")
+		else
+			for _, filename in pairs(file.GetFiles(mcc._path .. "loc/")) do
+				local str = filename:match('^(.*).txt$')
+				if str and Idstring(str) and Idstring(str):key() == SystemInfo:language():key() then
+					loc:load_localization_file(mcc._path .. "loc/" .. filename)
+					break
+				end
+			end
+		end
+	end
+	loc:load_localization_file(mcc._path .. "loc/english.txt", false)
+end)
+
+-- Menu for a Slider and a reset button 
+Hooks:Add( "MenuManagerInitialize", "MenuManagerInitialize_mcc", function( menu_manager )
+
+	MenuCallbackHandler.callback_mcc_chance_slider_filters = function (self, item)
+		mcc.settings.mcc_chance_slider_value = item:value()
+	end 
+	
+	MenuCallbackHandler.mcc_save = function(this, item)
+		mcc:Save()
+	end
+	
+	MenuCallbackHandler.callback_mcc_chance_reset = function(self, item)
+		MenuHelper:ResetItemsToDefaultValue(item, {["mcc_chance_slider"] = true}, 20)
+	end
+	
+	mcc:Load()	
+	MenuHelper:LoadFromJsonFile(mcc._path .. "menu/options.txt", mcc, mcc.settings)
+end )

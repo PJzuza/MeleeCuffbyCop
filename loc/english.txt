@@ -1,0 +1,8 @@
+{
+	"mcc_menu_title" : "Melee Cuff by Cop",
+	"mcc_menu_desc" : "Adjust a melee chance value while you are in-game",
+	"mcc_chance_slider_title" : "Melee Chance",
+	"mcc_chance_slider_desc" : "Adjust a melee chance value that cops can cuff a heister if they have successfully meleed him/her.\nIf the value = 0 Cops won't cuff a player and disable the mod, if the value = 100 Cops will always cuff a player",
+	"mcc_chance_options_reset_title" : "Reset",
+	"mcc_chance_options_reset_desc" : "Reset Melee Chance into Default value (20% Melee chance of getting cuffed)"
+}

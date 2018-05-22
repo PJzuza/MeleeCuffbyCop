@@ -1,0 +1,49 @@
+22th May 2018
+MeleeCuffbyCop version 1.5
+- Added Menu option.
+- Added Thai language by me.
+- Added an auto-update by using Update This Mod instead of paydaymods website.
+
+27th Feb 2018
+MeleeCuffbyCop version 1.4
+- Removed Phalanx unit ability to cuff a player as they shouldn't have the melee ability (a bug from the base game...)
+- Added line i03 so normal|heavy swats and normal cops can say this line when they have cuffed you successfully. (consider as a taunt.)
+- Specials won't say any lines if they cuff a player as they don't have this line sadly.
+
+10th Feb 2018
+- Change the downloading file to modworkshop.net directly as my friend suggested that it will be much easier to people who want to download the mod.
+
+9th Feb 2018
+MeleeCuffbyCop version 1.3
+- Rewritten the whole codes. Thanks to Luffy's help. Full credit is given to him :)
+- Added a counter skill ace check (How can I forgot this one lol sorry guys)
+
+26th January 2018
+MeleeCuffbyCop version 1.2c
+- Added blue swat on enemies types ( I forgot to add him so here we are :P)
+- Sorry. I don't have much time lately but I'll keep updating my mod.
+
+16th Jan 2018
+MeleeCuffbyCop version 1.2b
+- Remove left over codes and fixed crashed issue
+- Deleted the unwanted lines
+- Remove leftover sound codes as it didn't work for now
+
+15th Jan 2018
+MeleebyCop version 1.2
+- Added enemies types that can cuff a player. 
+- Made Counter Strike skill effects other excluded units too.
+
+11th Jan 2018
+MeleebyCop version 1.1
+- Temporary fixed Counterstrike skill.
+- Added a check for counterstrike skill though it's still buggy as hell :P since 
+- Sometimes, cops will get auto countered from a player and you don't have to hold e to prepare a counter.
+- Luckily cloaker still can down you so be on your guard when facing him.
+
+8th Jan 2018
+MeleebyCop version 1.0
+MeleebyCop Reborn!!! 
+- Added a working mod.
+- Prevent getting cuffed when a player is on swansong, bleed out or incapacitated state.
+- Added an ability that cops can cuff a player instantly if a player got tased.

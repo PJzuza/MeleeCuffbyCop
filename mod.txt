@@ -3,16 +3,22 @@
 	    "description" : "Gain a chance of cops can melee and can cuff a player.",
 	    "author" : "NewPJzuza and thanks to Luffy's help. I'm appreciated it :)",
 	    "contact" : "http://steamcommunity.com/id/NewPJzuza/",
-	    "version" : "1.4",
+	    "version" : "1.5",
 	    "blt_version" : 2,
 	    "image": "meleecuff.png",
 	    "color": "239 170 66",
 		"updates":  [{
-		"identifier": "MCbC"
+		"identifier": "21693"
 					}],
 	    "hooks" : [
+						{ 	"hook_id" : "lib/managers/localizationmanager", 
+							"script_path" : "lua/Updates.lua" 
+						},
+						{	"hook_id": "lib/managers/menumanager",	
+							"script_path": "lua/MeleeChance.lua"
+						},
 						{ 	"hook_id" : "lib/units/beings/player/playerdamage", 
-							"script_path" : "MeleeChance.lua" 
+							"script_path" : "lua/MeleeChance.lua" 
 						}
 	              ]
 }
