@@ -1,3 +1,7 @@
+23th May 2018
+MeleeCuffbyCop version 1.5a
+- Fixed code at menu part by ShockWave. Thank you so much :D
+
 22th May 2018
 MeleeCuffbyCop version 1.5
 - Added Menu option.

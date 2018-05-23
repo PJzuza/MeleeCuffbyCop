@@ -32,6 +32,7 @@ function mcc:Load()
 				self.settings[k] = v
 		end
 		--self:GetCuffedChanceValue() -- What this function does here?; ShockWave
+		--True... I'm derped xD; NewPJzuza
 		file:close()
 	end
 end
