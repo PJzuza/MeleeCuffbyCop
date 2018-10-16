@@ -18,6 +18,9 @@ You can change the Melee Chance in the in-game mod option. It has the value from
 3. Move the folder's name "MeleeCuffbyCop" to \SteamLibrary\steamapps\common\PAYDAY 2\mods  
 4. Enjoy :)  
 
+## Special thank you
+1.[ShiNRaX2](http://steamcommunity.com/profiles/76561198028016758/) for the german localization and his help with the auto-updater
+
 ## More information please, visit
 [My Modworkshop](https://modworkshop.net/mydownloads.php?action=view_down&did=21693)  
 **PJzuza**

@@ -1,0 +1,8 @@
+{
+	"mcc_menu_title" : "Melee Cuff by Cop",
+	"mcc_menu_desc" : "Ändere die Fesselschance während du im Spiel bist",
+	"mcc_chance_slider_title" : "Fesselschance",
+	"mcc_chance_slider_desc" : "Ändere die Wahrscheinlichkeit, mit der Polizisten einen Räuber bei einem erfolgreichen Nahkampfangriff fesseln können.\nWenn der Wert 0 ist, können die Polizisten Spieler nicht fesseln. Wenn der Wert 100 ist, werden die Polizisten Spieler immer fesseln.",
+	"mcc_chance_options_reset_title" : "Zurücksetzen",
+	"mcc_chance_options_reset_desc" : "Setze die Fesselschance auf den Standartwert zurück (20%)"
+}
