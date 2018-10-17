@@ -1,3 +1,11 @@
+18th October 2018
+MeleeCuffbyCop version 1.7
+- Fixed auto-updater.
+
+16th October 2018
+MeleeCuffbyCop version 1.6
+- Added auto-updater by ShiNRaX2. Thank you very much :D
+
 23th May 2018
 MeleeCuffbyCop version 1.5a
 - Fixed code at menu part by ShockWave. Thank you so much :D
